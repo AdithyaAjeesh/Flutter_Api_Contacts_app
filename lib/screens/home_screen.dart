@@ -15,6 +15,7 @@ class HomeScreen extends StatelessWidget {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
+          const SizedBox(height: 40),
           Container(
             margin: const EdgeInsets.only(top: 20),
             padding: const EdgeInsets.all(20),
@@ -61,7 +62,9 @@ class HomeScreen extends StatelessWidget {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          provider.getAllContacts();
+        },
         backgroundColor: Colors.redAccent,
         child: const Text('+'),
       ),

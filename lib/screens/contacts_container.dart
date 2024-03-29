@@ -8,7 +8,7 @@ Widget contactContainer({
     GestureDetector(
       child: Container(
         margin: const EdgeInsets.all(15),
-        height: 190,
+        height: 80,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           color: const Color.fromARGB(255, 27, 26, 26),
@@ -17,7 +17,7 @@ Widget contactContainer({
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 const SizedBox(width: 10),
                 const Icon(
@@ -36,46 +36,6 @@ Widget contactContainer({
                 ),
               ],
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                const SizedBox(width: 10),
-                const Icon(
-                  Icons.phone,
-                  color: Colors.redAccent,
-                  size: 35,
-                ),
-                const SizedBox(width: 10),
-                Text(
-                  phone.toString(),
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18,
-                  ),
-                ),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                const SizedBox(width: 10),
-                const Icon(
-                  Icons.place,
-                  color: Colors.redAccent,
-                  size: 35,
-                ),
-                const SizedBox(width: 10),
-                Text(
-                  address.toString(),
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18,
-                  ),
-                ),
-              ],
-            )
           ],
         ),
       ),
