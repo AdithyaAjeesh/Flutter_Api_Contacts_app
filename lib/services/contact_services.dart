@@ -17,4 +17,18 @@ class ContactServices {
       throw Exception('Failed to load data');
     }
   }
+
+  Future<void> postData(ContactModel contact) async {
+    final response = await http.post(
+      Uri.parse("https://contacts-management-server.onrender.com/api/contacts"),
+      body: jsonEncode(contact.toJson()),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+    );
+
+    if (response.statusCode != 201) {
+      throw Exception('Failed to post data');
+    }
+  }
 }

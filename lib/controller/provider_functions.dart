@@ -4,6 +4,10 @@ import 'package:flutter_contacts_app/services/contact_services.dart';
 
 class ContactProvider extends ChangeNotifier {
   List<ContactModel> contacts = [];
+  TextEditingController nameController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController phoneController = TextEditingController();
+  TextEditingController addressController = TextEditingController();
 
   bool isLoading = false;
   String error = '';
@@ -21,5 +25,23 @@ class ContactProvider extends ChangeNotifier {
       isLoading = false;
       notifyListeners();
     }
+  }
+
+  void submitContact() {
+    ContactModel contactModel = ContactModel(
+      name: nameController.text.trim(),
+      email: emailController.text.trim(),
+      address: addressController.text.trim(),
+      phone: int.tryParse(phoneController.text.trim()),
+    );
+    contactServices.postData(contactModel).then((value) {
+      contactServices.getAllData();
+      nameController.clear();
+      emailController.clear();
+      phoneController.clear();
+      addressController.clear();
+    }).catchError((onError) {
+      print('Failed To Add Contact');
+    });
   }
 }

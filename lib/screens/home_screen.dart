@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_contacts_app/controller/provider_functions.dart';
+import 'package:flutter_contacts_app/screens/add_contacts_screen.dart';
 import 'package:flutter_contacts_app/screens/contacts_container.dart';
 import 'package:provider/provider.dart';
 
@@ -15,24 +16,23 @@ class HomeScreen extends StatelessWidget {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          const SizedBox(height: 40),
           Container(
-            margin: const EdgeInsets.only(top: 20),
+            margin: const EdgeInsets.only(top: 80),
             padding: const EdgeInsets.all(20),
             child: const TextField(
               style: TextStyle(
-                  color: Colors.redAccent,
+                  color: Color.fromRGBO(128, 13, 13, 1),
                   fontWeight: FontWeight.bold,
                   fontSize: 18),
               decoration: InputDecoration(
                 hintText: 'Search for Contacts',
                 hintStyle: TextStyle(
-                  color: Colors.white,
+                  color: Color.fromRGBO(128, 13, 13, 1),
                   fontWeight: FontWeight.bold,
                 ),
                 prefixIcon: Icon(
                   Icons.search,
-                  color: Colors.redAccent,
+                  color: Color.fromRGBO(128, 13, 13, 1),
                   size: 30,
                 ),
                 border: OutlineInputBorder(
@@ -52,6 +52,7 @@ class HomeScreen extends StatelessWidget {
                       final phone = person.phone;
                       final address = person.address;
                       return contactContainer(
+                        context: context,
                         name: name.toString(),
                         phone: phone.toString(),
                         address: address.toString(),
@@ -63,10 +64,19 @@ class HomeScreen extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
+          Navigator.of(context).pushReplacement(
+              MaterialPageRoute(builder: (context) => const AddContacts()));
           provider.getAllContacts();
         },
-        backgroundColor: Colors.redAccent,
-        child: const Text('+'),
+        backgroundColor: const Color.fromRGBO(128, 13, 13, 1),
+        child: const Text(
+          '+',
+          style: TextStyle(
+            color: Colors.black,
+            fontWeight: FontWeight.bold,
+            fontSize: 25,
+          ),
+        ),
       ),
     );
   }
