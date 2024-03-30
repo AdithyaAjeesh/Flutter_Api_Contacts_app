@@ -1,18 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_contacts_app/controller/provider_functions.dart';
+import 'package:flutter_contacts_app/screens/update_contacts_screen.dart';
+import 'package:provider/provider.dart';
 
 class ContactDetailScreen extends StatelessWidget {
   final String name;
   final String phone;
   final String address;
+  final String contactId;
   const ContactDetailScreen({
     super.key,
     required this.name,
     required this.phone,
     required this.address,
+    required this.contactId,
   });
 
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<ContactProvider>(context);
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
@@ -35,58 +41,73 @@ class ContactDetailScreen extends StatelessWidget {
           ),
           height: 550,
           width: 350,
-          child: Column(
-            children: [
-              const SizedBox(height: 50),
-              Text(
-                'Name: $name',
-                style: const TextStyle(
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20,
-                ),
-              ),
-              const SizedBox(height: 50),
-              Text(
-                'Phone Number: $phone',
-                style: const TextStyle(
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20,
-                ),
-              ),
-              const SizedBox(height: 50),
-              Text(
-                'Address: $address',
-                style: const TextStyle(
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20,
-                ),
-              ),
-              const SizedBox(height: 50),
-              ElevatedButton(
-                onPressed: () {},
-                style: ElevatedButton.styleFrom(backgroundColor: Colors.black),
-                child: const Text(
-                  'Edit Contact',
-                  style: TextStyle(
-                    color: Color.fromRGBO(128, 13, 13, 1),
+          child: Consumer<ContactProvider>(
+            builder: (context, pro, child) {
+              return 
+             Column(
+              children: [
+                const SizedBox(height: 50),
+                Text(
+                  'Name: $name',
+                  style: const TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
                   ),
                 ),
-              ),
-              const SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: () {},
-                style: ElevatedButton.styleFrom(backgroundColor: Colors.black),
-                child: const Text(
-                  'Delete Contact',
-                  style: TextStyle(
-                    color: Color.fromRGBO(128, 13, 13, 1),
+                const SizedBox(height: 50),
+                Text(
+                  'Phone Number: $phone',
+                  style: const TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
                   ),
                 ),
-              ),
-            ],
+                const SizedBox(height: 50),
+                Text(
+                  'Address: $address',
+                  style: const TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
+                  ),
+                ),
+                const SizedBox(height: 50),
+                // ElevatedButton(
+                //   onPressed: () {
+                //     Navigator.of(context).push(
+                //       MaterialPageRoute(
+                //         builder: (context) =>
+                //             UpdateContactScreen(contactId: pro.contacts),
+                //       ),
+                //     );
+                //   },
+                //   style: ElevatedButton.styleFrom(backgroundColor: Colors.black),
+                //   child: const Text(
+                //     'Edit Contact',
+                //     style: TextStyle(
+                //       color: Color.fromRGBO(128, 13, 13, 1),
+                //     ),
+                //   ),
+                // ),
+                const SizedBox(height: 20),
+                ElevatedButton(
+                  onPressed: () {
+                    provider.deleteContacts(contactId);
+                    Navigator.of(context).pop();
+                  },
+                  style: ElevatedButton.styleFrom(backgroundColor: Colors.black),
+                  child: const Text(
+                    'Delete Contact',
+                    style: TextStyle(
+                      color: Color.fromRGBO(128, 13, 13, 1),
+                    ),
+                  ),
+                ),
+              ],
+            );
+            },
           ),
         ),
       ),

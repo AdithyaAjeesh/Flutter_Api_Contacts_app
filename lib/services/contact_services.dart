@@ -31,4 +31,20 @@ class ContactServices {
       throw Exception('Failed to post data');
     }
   }
+
+  Future<void> updateData(contact,id) async {
+    final body = contact.toJson();
+    final response = await http.put(
+      Uri.parse(
+          "https://contacts-management-server.onrender.com/api/contacts/$id"),
+      headers: 
+        {'Content-Type': 'application/json; charset=UTF-8',},
+      body: jsonEncode(body),
+     
+    );
+
+    if (response.statusCode != 200) {
+      throw Exception('Failed to update data');
+    }
+  }
 }

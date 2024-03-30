@@ -27,6 +27,11 @@ class ContactProvider extends ChangeNotifier {
     }
   }
 
+  Future<void> deleteContacts(String contactId) async {
+    contacts.removeWhere((contact) => contact.sId == contactId);
+    notifyListeners();
+  }
+
   void submitContact() {
     ContactModel contactModel = ContactModel(
       name: nameController.text.trim(),
@@ -43,5 +48,32 @@ class ContactProvider extends ChangeNotifier {
     }).catchError((onError) {
       print('Failed To Add Contact');
     });
+  }
+
+  Future<void> updateContact(ContactModel contact) async {
+    // ContactModel? contactToUpdate =
+    //     contacts.firstWhere((contact) => contact.sId == contactId);
+    // if (contactToUpdate == null) {
+    //   print('Contact not found');
+    //   return;
+    // }
+    final id = contact.sId;
+    final name = nameController.text;
+    final email = emailController.text;
+    final phone = int.tryParse(phoneController.text.trim());
+    final address = addressController.text;
+
+    // contactToUpdate.name = nameController.text.trim();
+    // contactToUpdate.email = emailController.text.trim();
+    // contactToUpdate.phone = int.tryParse(phoneController.text.trim());
+
+    final modelRequest = ContactModel(
+        address: address, email: email, name: name, phone: phone, sId: id);
+    try {
+      await contactServices.updateData(modelRequest,id);
+    } catch (e) {
+      print('faled to update');
+    }
+    notifyListeners();
   }
 }
