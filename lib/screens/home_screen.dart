@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_contacts_app/controller/provider_functions.dart';
 import 'package:flutter_contacts_app/screens/add_contacts_screen.dart';
-import 'package:flutter_contacts_app/screens/contacts_container.dart';
 import 'package:flutter_contacts_app/screens/contacts_detials_screen.dart';
 import 'package:flutter_contacts_app/screens/update_contacts_screen.dart';
 import 'package:provider/provider.dart';
@@ -105,7 +104,7 @@ class HomeScreen extends StatelessWidget {
                                           ),
                                         );
                                       },
-                                      icon: Icon(Icons.edit))
+                                      icon: const Icon(Icons.edit))
                                 ],
                               ),
                             ],

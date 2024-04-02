@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:flutter/material.dart';
 import 'package:flutter_contacts_app/models/contact_model.dart';
 import 'package:flutter_contacts_app/services/contact_services.dart';
@@ -51,22 +53,11 @@ class ContactProvider extends ChangeNotifier {
   }
 
   Future<void> updateContact(ContactModel contact) async {
-    // ContactModel? contactToUpdate =
-    //     contacts.firstWhere((contact) => contact.sId == contactId);
-    // if (contactToUpdate == null) {
-    //   print('Contact not found');
-    //   return;
-    // }
     final id = contact.sId;
     final name = nameController.text;
     final email = emailController.text;
     final phone = int.tryParse(phoneController.text.trim());
     final address = addressController.text;
-
-    // contactToUpdate.name = nameController.text.trim();
-    // contactToUpdate.email = emailController.text.trim();
-    // contactToUpdate.phone = int.tryParse(phoneController.text.trim());
-
     final modelRequest = ContactModel(
         address: address, email: email, name: name, phone: phone, sId: id);
     try {
