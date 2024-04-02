@@ -29,16 +29,14 @@ class ContactProvider extends ChangeNotifier {
     }
   }
 
-  // Future<void> deleteContacts(String contactId) async {
-  //   contacts.removeWhere((contact) => contact.sId == contactId);
-  //   notifyListeners();
-  // }
-
   Future<void> deleteContacts(String contactId) async {
-    print('Deleting contact with ID: $contactId');
-    contacts.removeWhere((contact) => contact.sId == contactId);
-    print('Contact deleted successfully');
-    notifyListeners();
+    try {
+      await contactServices.deleteData(contactId);
+      contacts.removeWhere((contact) => contact.sId == contactId);
+      notifyListeners();
+    } catch (e) {
+      print('Failed to delete contact: $e');
+    }
   }
 
   void submitContact() {

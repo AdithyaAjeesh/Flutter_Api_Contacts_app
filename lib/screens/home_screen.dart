@@ -42,85 +42,105 @@ class HomeScreen extends StatelessWidget {
               ),
             ),
           ),
-          Expanded(
-            child: provider.contacts.isEmpty
-                ? const Center(child: CircularProgressIndicator())
-                : ListView.builder(
-                    itemCount: provider.contacts.length,
-                    itemBuilder: (context, index) {
-                      final person = provider.contacts[index];
-                      final name = person.name;
-                      final phone = person.phone;
-                      final address = person.address;
-                      final id = person.sId;
-                      return GestureDetector(
-                        onTap: () {
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (context) => ContactDetailScreen(
-                                name: name.toString(),
-                                phone: phone.toString(),
-                                address: address.toString(),
-                                contactId: id.toString(),
+          Consumer<ContactProvider>(builder: (context, pro, child) {
+            return Expanded(
+              child: pro.contacts.isEmpty
+                  ? const Center(child: CircularProgressIndicator())
+                  : ListView.builder(
+                      itemCount: pro.contacts.length,
+                      itemBuilder: (context, index) {
+                        final person = pro.contacts[index];
+                        final name = person.name;
+                        final phone = person.phone;
+                        final address = person.address;
+                        final id = person.sId;
+                        return GestureDetector(
+                          onTap: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) => ContactDetailScreen(
+                                  name: name.toString(),
+                                  phone: phone.toString(),
+                                  address: address.toString(),
+                                  contactId: id.toString(),
+                                ),
                               ),
+                            );
+                          },
+                          child: Container(
+                            margin: const EdgeInsets.all(15),
+                            height: 80,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: const Color.fromRGBO(128, 13, 13, 1),
                             ),
-                          );
-                        },
-                        child: Container(
-                          margin: const EdgeInsets.all(15),
-                          height: 80,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            color: const Color.fromRGBO(128, 13, 13, 1),
-                          ),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  const SizedBox(width: 10),
-                                  const Icon(
-                                    Icons.person_2,
-                                    color: Colors.black,
-                                    size: 40,
-                                  ),
-                                  const SizedBox(width: 10),
-                                  Text(
-                                    name.toString().toString(),
-                                    style: const TextStyle(
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 18,
-                                    ),
-                                  ),
-                                  IconButton(
-                                    onPressed: () {
-                                      Navigator.of(context).push(
-                                        MaterialPageRoute(
-                                          builder: (context) =>
-                                              UpdateContactScreen(
-                                                  contactId: person),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Row(
+                                      children: [
+                                        const SizedBox(width: 10),
+                                        const Icon(
+                                          Icons.person_2,
+                                          color: Colors.black,
+                                          size: 40,
                                         ),
-                                      );
-                                    },
-                                    icon: const Icon(Icons.edit),
-                                  ),
-                                  IconButton(
-                                    onPressed: () {
-                                      provider.deleteContacts(person.sId!);
-                                    },
-                                    icon: const Icon(Icons.delete),
-                                  )
-                                ],
-                              ),
-                            ],
+                                        const SizedBox(width: 10),
+                                        Text(
+                                          name.toString().toString(),
+                                          style: const TextStyle(
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 18,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    Row(
+                                      children: [
+                                        IconButton(
+                                          onPressed: () {
+                                            Navigator.of(context).push(
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    UpdateContactScreen(
+                                                  contactId: person,
+                                                ),
+                                              ),
+                                            );
+                                          },
+                                          icon: const Icon(
+                                            Icons.edit,
+                                            color: Colors.black,
+                                          ),
+                                        ),
+                                        IconButton(
+                                          onPressed: () {
+                                            pro.deleteContacts(
+                                                pro.contacts[index].sId!);
+                                          },
+                                          icon: const Icon(
+                                            Icons.delete,
+                                            color: Colors.black,
+                                          ),
+                                        ),
+                                        const SizedBox(width: 20),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
-                      );
-                    },
-                  ),
-          )
+                        );
+                      },
+                    ),
+            );
+          })
         ],
       ),
       floatingActionButton: FloatingActionButton(
