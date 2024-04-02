@@ -29,8 +29,15 @@ class ContactProvider extends ChangeNotifier {
     }
   }
 
+  // Future<void> deleteContacts(String contactId) async {
+  //   contacts.removeWhere((contact) => contact.sId == contactId);
+  //   notifyListeners();
+  // }
+
   Future<void> deleteContacts(String contactId) async {
+    print('Deleting contact with ID: $contactId');
     contacts.removeWhere((contact) => contact.sId == contactId);
+    print('Contact deleted successfully');
     notifyListeners();
   }
 
@@ -61,7 +68,7 @@ class ContactProvider extends ChangeNotifier {
     final modelRequest = ContactModel(
         address: address, email: email, name: name, phone: phone, sId: id);
     try {
-      await contactServices.updateData(modelRequest,id);
+      await contactServices.updateData(modelRequest, id);
     } catch (e) {
       print('faled to update');
     }

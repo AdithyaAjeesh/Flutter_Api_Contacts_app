@@ -17,7 +17,6 @@ class ContactDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final provider = Provider.of<ContactProvider>(context);
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
@@ -69,22 +68,6 @@ class ContactDetailScreen extends StatelessWidget {
                       color: Colors.black,
                       fontWeight: FontWeight.bold,
                       fontSize: 20,
-                    ),
-                  ),
-                  const SizedBox(height: 50),
-                  const SizedBox(height: 20),
-                  ElevatedButton(
-                    onPressed: () {
-                      provider.deleteContacts(contactId);
-                      Navigator.of(context).pop();
-                    },
-                    style:
-                        ElevatedButton.styleFrom(backgroundColor: Colors.black),
-                    child: const Text(
-                      'Delete Contact',
-                      style: TextStyle(
-                        color: Color.fromRGBO(128, 13, 13, 1),
-                      ),
                     ),
                   ),
                 ],

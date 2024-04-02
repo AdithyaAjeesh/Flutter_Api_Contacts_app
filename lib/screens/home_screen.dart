@@ -95,16 +95,23 @@ class HomeScreen extends StatelessWidget {
                                     ),
                                   ),
                                   IconButton(
-                                      onPressed: () {
-                                        Navigator.of(context).push(
-                                          MaterialPageRoute(
-                                            builder: (context) =>
-                                                UpdateContactScreen(
-                                                    contactId: person),
-                                          ),
-                                        );
-                                      },
-                                      icon: const Icon(Icons.edit))
+                                    onPressed: () {
+                                      Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              UpdateContactScreen(
+                                                  contactId: person),
+                                        ),
+                                      );
+                                    },
+                                    icon: const Icon(Icons.edit),
+                                  ),
+                                  IconButton(
+                                    onPressed: () {
+                                      provider.deleteContacts(person.sId!);
+                                    },
+                                    icon: const Icon(Icons.delete),
+                                  )
                                 ],
                               ),
                             ],
