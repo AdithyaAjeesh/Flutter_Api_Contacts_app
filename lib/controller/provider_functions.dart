@@ -39,7 +39,7 @@ class ContactProvider extends ChangeNotifier {
     }
   }
 
-  void submitContact() {
+  Future<void> submitContact() async {
     ContactModel contactModel = ContactModel(
       name: nameController.text.trim(),
       email: emailController.text.trim(),
@@ -54,7 +54,6 @@ class ContactProvider extends ChangeNotifier {
       addressController.clear();
     }).catchError((onError) {
       print('Failed To Add Contact');
-      
     });
   }
 

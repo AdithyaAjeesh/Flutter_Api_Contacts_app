@@ -37,13 +37,13 @@ class ContactDetailScreen extends StatelessWidget {
             borderRadius: BorderRadius.circular(15),
             color: const Color.fromRGBO(128, 13, 13, 1),
           ),
-          height: 550,
+          height: 350,
           width: 350,
           child: Consumer<ContactProvider>(
             builder: (context, pro, child) {
               return Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  const SizedBox(height: 50),
                   Text(
                     'Name: $name',
                     style: const TextStyle(
@@ -52,7 +52,6 @@ class ContactDetailScreen extends StatelessWidget {
                       fontSize: 20,
                     ),
                   ),
-                  const SizedBox(height: 50),
                   Text(
                     'Phone Number: $phone',
                     style: const TextStyle(
@@ -61,7 +60,6 @@ class ContactDetailScreen extends StatelessWidget {
                       fontSize: 20,
                     ),
                   ),
-                  const SizedBox(height: 50),
                   Text(
                     'Address: $address',
                     style: const TextStyle(

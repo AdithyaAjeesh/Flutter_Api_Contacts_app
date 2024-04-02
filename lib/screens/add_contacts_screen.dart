@@ -80,6 +80,8 @@ Widget inputbox({
     Container(
       margin: const EdgeInsets.all(15),
       child: TextField(
+        style: const TextStyle(
+            color: Color.fromRGBO(128, 13, 13, 1), fontWeight: FontWeight.bold),
         controller: controller,
         decoration: InputDecoration(
           hintText: hint,

@@ -12,88 +12,110 @@ class UpdateContactScreen extends StatefulWidget {
   State<UpdateContactScreen> createState() => _UpdateContactScreenState();
 }
 
-
-
 class _UpdateContactScreenState extends State<UpdateContactScreen> {
-
-  // @override
-  // void initState() {
-  //   super.initState();
-
-
-  //   final provider = Provider.of<ContactProvider>(context, listen: false);
-  //   // final contact =
-  //   //     provider.contacts.firstWhere((contact) => contact.sId == contactId);
-
-  //   final contact = widget.contactId;
-
-  //   // Initialize text controllers with existing contact details
-  //   provider.nameController.text = contact.name;
-  //   provider.phoneController.text = contact.phone.toString();
-  //   provider.addressController.text = contact.address;
-  //   provider.emailController.text = contact.email;
-  // }
   @override
-void initState() {
-  super.initState();
+  void initState() {
+    super.initState();
 
-  final provider = Provider.of<ContactProvider>(context, listen: false);
-  final ContactModel contact = widget.contactId as ContactModel; // Cast contactId to ContactModel
-
-  // Initialize text controllers with existing contact details
-  provider.nameController.text = contact.name ?? '';
-  provider.phoneController.text = contact.phone?.toString() ?? '';
-  provider.addressController.text = contact.address ?? '';
-  provider.emailController.text = contact.email ?? '';
-}
+    final provider = Provider.of<ContactProvider>(context, listen: false);
+    final ContactModel contact = widget.contactId as ContactModel;
+    provider.nameController.text = contact.name ?? '';
+    provider.phoneController.text = contact.phone?.toString() ?? '';
+    provider.addressController.text = contact.address ?? '';
+    provider.emailController.text = contact.email ?? '';
+  }
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
+      backgroundColor: Colors.black,
+      appBar: AppBar(
+        backgroundColor: Colors.black,
+        leading: IconButton(
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+          icon: const Icon(
+            Icons.arrow_back,
+            color: Color.fromRGBO(128, 13, 13, 1),
+          ),
+        ),
+      ),
       body: Center(
         child: Consumer<ContactProvider>(
           builder: (context, provider, child) {
-            return 
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              TextField(
-                controller: provider.nameController,
-                decoration: const InputDecoration(
-                  labelText: 'Name',
+            return Column(
+              children: [
+                const SizedBox(height: 40),
+                inputbox(
+                  controller: provider.nameController,
+                  icons: Icons.text_format,
+                  hint: 'Enter Name',
                 ),
-              ),
-              TextField(
-                controller: provider.phoneController,
-                decoration: const InputDecoration(
-                  labelText: 'Phone',
+                inputbox(
+                  controller: provider.phoneController,
+                  icons: Icons.phone,
+                  hint: 'Enter PhoneNumber',
                 ),
-              ),
-              TextField(
-                controller: provider.addressController,
-                decoration: const InputDecoration(
-                  labelText: 'Address',
+                inputbox(
+                  controller: provider.addressController,
+                  icons: Icons.place,
+                  hint: 'Enter Address',
                 ),
-              ),
-              TextField(
-                controller: provider.emailController,
-                decoration: const InputDecoration(
-                  labelText: 'Email',
+                inputbox(
+                  controller: provider.emailController,
+                  icons: Icons.email,
+                  hint: 'Enter Email',
                 ),
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  provider.updateContact(widget.contactId);
-                  Navigator.of(context).pop();
-                },
-                child: const Text('Update'),
-              ),
-            ],
-          );
+                const SizedBox(height: 40),
+                ElevatedButton(
+                  onPressed: () {
+                    provider.updateContact(widget.contactId);
+                    Navigator.of(context).pop();
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color.fromRGBO(128, 13, 13, 1),
+                  ),
+                  child: const Text(
+                    'Update Contacts',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                    ),
+                  ),
+                ),
+              ],
+            );
           },
         ),
       ),
     );
   }
 }
+
+Widget inputbox({
+  required TextEditingController controller,
+  required IconData icons,
+  required String hint,
+}) =>
+    Container(
+      margin: const EdgeInsets.all(15),
+      child: TextField(
+        style: const TextStyle(
+            color: Color.fromRGBO(128, 13, 13, 1), fontWeight: FontWeight.bold),
+        controller: controller,
+        decoration: InputDecoration(
+          hintText: hint,
+          hintStyle: const TextStyle(
+            color: Color.fromRGBO(128, 13, 13, 1),
+          ),
+          prefixIcon: Icon(
+            icons,
+            color: const Color.fromRGBO(128, 13, 13, 1),
+          ),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+        ),
+      ),
+    );
