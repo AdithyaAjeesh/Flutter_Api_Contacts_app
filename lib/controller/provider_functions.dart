@@ -54,6 +54,7 @@ class ContactProvider extends ChangeNotifier {
       addressController.clear();
     }).catchError((onError) {
       print('Failed To Add Contact');
+      
     });
   }
 
