@@ -11,21 +11,15 @@ class ContactProvider extends ChangeNotifier {
   TextEditingController phoneController = TextEditingController();
   TextEditingController addressController = TextEditingController();
 
-  bool isLoading = false;
-  String error = '';
-
   final ContactServices contactServices = ContactServices();
+  List<ContactModel> filteredContacts = [];
 
   Future<void> getAllContacts() async {
     try {
-      isLoading = true;
-      error = '';
       contacts = await contactServices.getAllData();
-    } catch (e) {
-      error = 'Failed to load data $e';
-    } finally {
-      isLoading = false;
       notifyListeners();
+    } catch (e) {
+      Exception('Failed to load data $e');
     }
   }
 
@@ -70,6 +64,15 @@ class ContactProvider extends ChangeNotifier {
     } catch (e) {
       print('faled to update');
     }
+    notifyListeners();
+  }
+
+  void searchContacts(String query) {
+    filteredContacts = contacts
+        .where((contact) =>
+            (contact.name?.toLowerCase() ?? '').contains(query.toLowerCase()) ||
+            (contact.phone?.toString() ?? '').contains(query))
+        .toList();
     notifyListeners();
   }
 }
